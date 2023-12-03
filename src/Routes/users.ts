@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import * as db from '../Controllers/users'; // Подключение к базе данных (примерно как в предыдущем ответе)
+import * as db from '../Controllers/users';
 import * as crypto from 'crypto';
 import jwt, { TokenExpiredError, verify } from 'jsonwebtoken';
 

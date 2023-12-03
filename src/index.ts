@@ -3,6 +3,8 @@ import bodyParser from "body-parser";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUI from 'swagger-ui-express';
 import userRouter from './Routes/users'
+import apsRouter from './Routes/apartaments'
+import feedbackRouter from "./Routes/feedback";
 const app = express()
 const port = 3030
 const swaggerDefinition = {
@@ -18,8 +20,11 @@ const options = {
     apis: ['./src/Routes/*.ts'],
 };
 const swaggerSpec = swaggerJSDoc(options);
+
 app.use(bodyParser.json());
 app.use('/api',userRouter)
+app.use('/api',feedbackRouter)
+app.use('/api',apsRouter)
 app.use('/documentation', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 app.get('/', (req: Request, res: Response) => {
     res.send('Привет, мир!');

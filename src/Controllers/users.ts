@@ -1,13 +1,6 @@
 import {db} from "../db";
 
-export async function query(queryText: string, values?: any[]) {
-    try {
-        return await db.any(queryText, values);
-    } catch (error) {
-        console.error('Database query error:', error);
-        throw error;
-    }
-}
+
 
 export async function createUser(username: string, password: string) {
     const queryText = 'INSERT INTO users (login, password) VALUES ($1, $2) RETURNING id';
