@@ -16,7 +16,7 @@ const router = express.Router();
  *         schema:
  *           type: object
  *           properties:
- *             addres:
+ *             address:
  *               type: string
  *             description:
  *               type: string
@@ -27,13 +27,9 @@ const router = express.Router();
  *             rooms:
  *               type: number
  *             img1:
- *               type: string
- *             img2:
- *               type: string
- *             img3:
- *               type: string
- *             img4:
- *               type: string
+ *               type: array
+ *               items:
+ *                 type: string
  *     responses:
  *       201:
  *         description: Apartment created successfully
@@ -41,7 +37,7 @@ const router = express.Router();
  *           type: object
  *           properties:
  *             id:
- *               type: string
+ *               type: number
  *             message:
  *               type: string
  *       500:
@@ -52,6 +48,8 @@ const router = express.Router();
  *             error:
  *               type: string
  */
+
+
 /**
  * @swagger
  * /api/apartments/get:
@@ -81,10 +79,10 @@ const router = express.Router();
 
 
 router.post('/apartments/create', async (req: Request, res: Response) => {
-    const { addres, description, phone, price, rooms, img1, img2, img3, img4 } = req.body;
+    const { addres, description, phone, price, rooms, img1 } = req.body;
 
     try {
-        const id = await db.createAps(addres, description, phone, price, rooms, img1, img2, img3, img4);
+        const id = await db.createAps(addres, description, phone, price, rooms, img1);
         res.status(201).json({ id, message: 'Apartment created successfully' });
     } catch (error) {
         console.error(error);
