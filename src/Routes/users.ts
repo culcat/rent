@@ -49,6 +49,8 @@ const router = express.Router();
  *     tags:
  *       - Пользователи
  *     requestBody:
+ *       description: JSON object containing user registration information.
+ *       required: true
  *       content:
  *         application/json:
  *           schema:
@@ -56,28 +58,48 @@ const router = express.Router();
  *             properties:
  *               username:
  *                 type: string
+ *                 description: The username for the new user.
  *               password:
  *                 type: string
+ *                 description: The password for the new user.
+ *               firstname:
+ *                 type: string
+ *                 description: The first name of the user.
+ *               lastname:
+ *                 type: string
+ *                 description: The last name of the user.
+ *               thirdname:
+ *                 type: string
+ *                 description: The third name of the user.
+ *               position:
+ *                 type: string
+ *                 description: The position or role of the user.
  *             required:
  *               - username
  *               - password
  *     responses:
  *       '201':
- *         description: Пользователь успешно создан
+ *         description: User successfully created.
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 id:
+ *                 userId:
  *                   type: number
+ *                   description: The unique identifier for the newly created user.
  *                 username:
  *                   type: string
+ *                   description: The username of the newly created user.
+ *                 token:
+ *                   type: string
+ *                   description: Authentication token for the newly registered user.
  *       '400':
- *         description: Ошибка валидации данных
+ *         description: Bad Request. Missing required fields or user with the same username already exists.
  *       '500':
- *         description: Внутренняя ошибка сервера
+ *         description: Internal Server Error. Something went wrong on the server.
  */
+
 /**
  * @openapi
  * /api/verify:
@@ -176,7 +198,7 @@ router.get('/verify', async (req: Request, res: Response) => {
 
 router.post('/register', async (req: Request, res: Response) => {
     try {
-        const { username, password } = req.body;
+        const { username, password,firstname,lastname,thirdname,position } = req.body;
 
         if (!username || !password ) {
             return res.status(400).json({ error: 'Missing required fields' });
@@ -188,7 +210,7 @@ router.post('/register', async (req: Request, res: Response) => {
             return res.status(400).json({ error: 'User with this username already exists' });
         }
 
-        const userId = await db.createUser(username, password);
+        const userId = await db.createUser(username, password,firstname,lastname,thirdname,position);
 
         // Generate a token for the newly registered user
         const token = jwt.sign({ username }, secretkey, { expiresIn: '1h' });

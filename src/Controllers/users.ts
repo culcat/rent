@@ -2,9 +2,9 @@ import {db} from "../db";
 
 
 
-export async function createUser(username: string, password: string) {
-    const queryText = 'INSERT INTO users (login, password) VALUES ($1, $2) RETURNING id';
-    const values = [username, password];
+export async function createUser(username: string, password: string,firstname:string,lastname:string,thirdname:string,position:string) {
+    const queryText = 'INSERT INTO users (login, password,firstname,lastname,thirdname,position) VALUES ($1, $2,$3,$4,$5,$6) RETURNING id';
+    const values = [username, password,firstname,lastname,thirdname,position];
 
     try {
         const result = await db.one(queryText, values);
