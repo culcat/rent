@@ -6,7 +6,7 @@ const router = express.Router();
  * @swagger
  * /api/apartments/create:
  *   post:
- *     summary: Create a new apartment
+ *     summary: Создание квартиры
  *     description: Creates a new apartment with the provided details.
  *     parameters:
  *       - in: body
@@ -54,7 +54,7 @@ const router = express.Router();
  * @swagger
  * /api/apartments/get:
  *   get:
- *     summary: Get a list of apartments
+ *     summary: Список квартир
  *     description: Retrieves a list of all apartments.
  *     responses:
  *       200:

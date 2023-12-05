@@ -5,6 +5,7 @@ import swaggerUI from 'swagger-ui-express';
 import userRouter from './Routes/users'
 import apsRouter from './Routes/apartaments'
 import feedbackRouter from "./Routes/feedback";
+import reviewRouter from './Routes/review'
 import cors from 'cors'
 const app = express()
 const port = 3030
@@ -23,6 +24,7 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/api',reviewRouter)
 app.use('/api',userRouter)
 app.use('/api',feedbackRouter)
 app.use('/api',apsRouter)

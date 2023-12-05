@@ -1,26 +1,29 @@
 import express, { Request, Response } from 'express';
-import * as db from '../Controllers/feedback';
+import * as db from '../Controllers/review';
+
 
 
 const router = express.Router();
 /**
  * @swagger
- * /api/feedback:
+ * /api/review:
  *   post:
- *     summary: Создние отклика
+ *     summary: Создание отзыва
  *     description: Creates a new apartment with the provided details.
  *     parameters:
  *       - in: body
- *         name: feedback
+ *         name: review
  *         description: The details of the apartment to be created.
  *         required: true
  *         schema:
  *           type: object
  *           properties:
- *             phone:
+ *             name:
  *               type: string
- *             id_apart:
- *               type: number
+ *             text:
+ *               type: string
+ *             user_id:
+ *               type: string
  *     responses:
  *       201:
  *         description: Apartment created successfully
@@ -44,11 +47,11 @@ const router = express.Router();
 
 
 
-router.post('/feedback', async (req:Request, res:Response) => {
+router.post('/review', async (req:Request, res:Response) => {
     try {
-        const { phone, id_apart } = req.body;
+        const { name,text,user_id } = req.body;
         console.log(req.body);
-        const feedbackId = await db.feedback(phone, id_apart);
+        const feedbackId = await db.review(name,text,user_id);
         res.status(201).json({ id: feedbackId, message: 'Feedback created successfully' });
     } catch (error) {
         console.error(error);
