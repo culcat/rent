@@ -26,10 +26,13 @@ const router = express.Router();
  *               type: number
  *             rooms:
  *               type: number
+ *             type:
+ *                 type: number
  *             img1:
  *               type: array
  *               items:
  *                 type: string
+
  *     responses:
  *       201:
  *         description: Apartment created successfully
@@ -79,10 +82,10 @@ const router = express.Router();
 
 
 router.post('/apartments/create', async (req: Request, res: Response) => {
-    const { addres, description, phone, price, rooms, img1 } = req.body;
+    const { addres, description, phone, price, rooms, img1,type } = req.body;
 
     try {
-        const id = await db.createAps(addres, description, phone, price, rooms, img1);
+        const id = await db.createAps(addres, description, phone, price, rooms, img1,type);
         res.status(201).json({ id, message: 'Apartment created successfully' });
     } catch (error) {
         console.error(error);
