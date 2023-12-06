@@ -7,37 +7,42 @@ const router = express.Router();
  * @swagger
  * /api/feedback:
  *   post:
- *     summary: Создние отклика
- *     description: Creates a new apartment with the provided details.
- *     parameters:
- *       - in: body
- *         name: feedback
- *         description: The details of the apartment to be created.
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             phone:
- *               type: string
- *             id_apart:
- *               type: number
+ *     summary: Создание отлика
+ *     tags:
+ *       - Отклики
+ *     requestBody:
+ *       description: Создает новый отклик с предоставленными данными.
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               phone:
+ *                 type: string
+ *               id_apart:
+ *                 type: number
  *     responses:
- *       201:
- *         description: Apartment created successfully
- *         schema:
- *           type: object
- *           properties:
- *             id:
- *               type: string
- *             message:
- *               type: string
- *       500:
- *         description: Internal Server Error
- *         schema:
- *           type: object
- *           properties:
- *             error:
- *               type: string
+ *       '201':
+ *         description: Отклик успешно создан
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *       '500':
+ *         description: Внутренняя ошибка сервера
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
  */
 
 

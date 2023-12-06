@@ -7,49 +7,53 @@ const router = express.Router();
  * /api/apartments/create:
  *   post:
  *     summary: Создание квартиры
- *     description: Creates a new apartment with the provided details.
- *     parameters:
- *       - in: body
- *         name: apartment
- *         description: The details of the apartment to be created.
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             address:
- *               type: string
- *             description:
- *               type: string
- *             phone:
- *               type: string
- *             price:
- *               type: number
- *             rooms:
- *               type: number
- *             type:
- *                 type: number
- *             img1:
- *               type: array
- *               items:
+ *     tags:
+ *       - Квартиры
+ *     requestBody:
+ *       description: Создает новую квартиру с предоставленными данными.
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               address:
  *                 type: string
-
+ *               description:
+ *                 type: string
+ *               phone:
+ *                 type: string
+ *               price:
+ *                 type: number
+ *               rooms:
+ *                 type: number
+ *               type:
+ *                 type: number
+ *               img1:
+ *                 type: array
+ *                 items:
+ *                   type: string
  *     responses:
- *       201:
- *         description: Apartment created successfully
- *         schema:
- *           type: object
- *           properties:
- *             id:
- *               type: number
- *             message:
- *               type: string
- *       500:
- *         description: Internal Server Error
- *         schema:
- *           type: object
- *           properties:
- *             error:
- *               type: string
+ *       '201':
+ *         description: Квартира успешно создана
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: number
+ *                 message:
+ *                   type: string
+ *       '500':
+ *         description: Внутренняя ошибка сервера
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
  */
 
 
@@ -58,24 +62,30 @@ const router = express.Router();
  * /api/apartments/get:
  *   get:
  *     summary: Список квартир
- *     description: Retrieves a list of all apartments.
+ *     tags:
+ *       - Квартиры
  *     responses:
- *       200:
- *         description: Successful response
- *         schema:
- *           type: array
- *           items:
- *             type: object
- *             properties:
- *               // Define the properties of your apartment object here
- *       500:
- *         description: Internal Server Error
- *         schema:
- *           type: object
- *           properties:
- *             error:
- *               type: string
+ *       '200':
+ *         description: Успешный ответ
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   // Define the properties of your apartment object here
+ *       '500':
+ *         description: Внутренняя ошибка сервера
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
  */
+
 
 
 

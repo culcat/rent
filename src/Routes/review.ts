@@ -9,39 +9,45 @@ const router = express.Router();
  * /api/review:
  *   post:
  *     summary: Создание отзыва
- *     description: Creates a new apartment with the provided details.
- *     parameters:
- *       - in: body
- *         name: review
- *         description: The details of the apartment to be created.
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             name:
- *               type: string
- *             text:
- *               type: string
- *             user_id:
- *               type: string
+ *     tags:
+ *       - Отзывы
+ *     requestBody:
+ *       description: Создает новый отзыв с предоставленными данными.
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               text:
+ *                 type: string
+ *               user_id:
+ *                 type: string
  *     responses:
- *       201:
- *         description: Apartment created successfully
- *         schema:
- *           type: object
- *           properties:
- *             id:
- *               type: string
- *             message:
- *               type: string
- *       500:
- *         description: Internal Server Error
- *         schema:
- *           type: object
- *           properties:
- *             error:
- *               type: string
+ *       '201':
+ *         description: Отзыв успешно создан
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *       '500':
+ *         description: Внутренняя ошибка сервера
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
  */
+
 
 
 
