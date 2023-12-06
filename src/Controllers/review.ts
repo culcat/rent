@@ -25,3 +25,16 @@ export async function getReviewByUsername(username: string) {
         throw error;
     }
 }
+
+export async function deleteReviewByID(id:number) {
+    const queryText = 'DELETE FROM review WHERE id = $1';
+    const values = [id];
+
+    try {
+        const user = await db.oneOrNone(queryText, values);
+        return user;
+    } catch (error) {
+        console.error('Error getting user:', error);
+        throw error;
+    }
+}
