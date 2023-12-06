@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import * as db from '../Controllers/users';
 import * as crypto from 'crypto';
 import jwt, { TokenExpiredError, verify } from 'jsonwebtoken';
-
+import * as dbFeed from '../Controllers/review'
 const router = express.Router();
 /**
  /**
@@ -74,6 +74,9 @@ const router = express.Router();
  *               position:
  *                 type: string
  *                 description: The position or role of the user.
+ *               img:
+ *                 type: string
+ *                 description: The username for the new user.
  *             required:
  *               - username
  *               - password
@@ -178,11 +181,11 @@ router.get('/verify', async (req: Request, res: Response) => {
             return res.status(401).json({ error: 'Invalid token structure' });
         }
 
-        // You need to await the result of the asynchronous operation
+        const userFeedback = await dbFeed.getReviewByUsername(decoded.username)
         const userInfo = await db.getUserByUsername(decoded.username);
 
         // Return user information in the response
-        res.status(200).json({userInfo});
+        res.status(200).json({userInfo,userFeedback});
     } catch (error) {
         if (error instanceof TokenExpiredError) {
             return res.status(401).json({ error: 'Token has expired' });
@@ -198,7 +201,7 @@ router.get('/verify', async (req: Request, res: Response) => {
 
 router.post('/register', async (req: Request, res: Response) => {
     try {
-        const { username, password,firstname,lastname,thirdname,position } = req.body;
+        const { username, password,firstname,lastname,thirdname,position,img } = req.body;
 
         if (!username || !password ) {
             return res.status(400).json({ error: 'Missing required fields' });
@@ -210,7 +213,7 @@ router.post('/register', async (req: Request, res: Response) => {
             return res.status(400).json({ error: 'User with this username already exists' });
         }
 
-        const userId = await db.createUser(username, password,firstname,lastname,thirdname,position);
+        const userId = await db.createUser(username, password,firstname,lastname,thirdname,position,img);
 
         // Generate a token for the newly registered user
         const token = jwt.sign({ username }, secretkey, { expiresIn: '1h' });

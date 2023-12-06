@@ -12,3 +12,16 @@ export  async function review(name:string,text:string,user_id:string){
         throw e;
     }
 }
+
+export async function getReviewByUsername(username: string) {
+    const queryText = 'SELECT * FROM review WHERE user_id = $1';
+    const values = [username];
+
+    try {
+        const user = await db.oneOrNone(queryText, values);
+        return user;
+    } catch (error) {
+        console.error('Error getting user:', error);
+        throw error;
+    }
+}

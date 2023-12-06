@@ -59,15 +59,7 @@ router.post('/review', async (req:Request, res:Response) => {
     }
 });
 
-// router.get('/apartments/get', async (req, res) => {
-//     try {
-//         const apartments = await db.getAps();
-//         res.status(200).json(apartments);
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// });
+
 
 
 
