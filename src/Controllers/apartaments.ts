@@ -24,6 +24,19 @@ export async function getAps() {
     }
 }
 
+export async function delAps(id:number){
+    const queryText = 'DELETE FROM apartments WHERE id = $1';
+    const values = [id];
+
+    try {
+        const result = await db.one(queryText, values);
+        return result.id;
+    } catch (error) {
+        console.error('Error creating apart:', error);
+        throw error;
+    }
+}
+
 
 
 // export async function getUserByUsername(username: string) {
