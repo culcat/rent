@@ -33,6 +33,8 @@ const router = express.Router();
  *                 type: array
  *                 items:
  *                   type: string
+ *               area:
+ *                 type: string
  *     responses:
  *       '201':
  *         description: Квартира успешно создана
@@ -54,7 +56,7 @@ const router = express.Router();
  *               properties:
  *                 error:
  *                   type: string
- */
+*/
 
 
 /**
@@ -123,10 +125,10 @@ const router = express.Router();
 
 
 router.post('/apartments/create', async (req: Request, res: Response) => {
-    const { addres, description, phone, price, rooms, img1,type } = req.body;
+    const { addres, description, phone, price, rooms, img1,type,area } = req.body;
 
     try {
-        const id = await db.createAps(addres, description, phone, price, rooms, img1,type);
+        const id = await db.createAps(addres, description, phone, price, rooms, img1,type,area);
         res.status(201).json({ id, message: 'Apartment created successfully' });
     } catch (error) {
         console.error(error);

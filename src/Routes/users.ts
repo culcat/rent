@@ -134,8 +134,68 @@ const router = express.Router();
  *       '500':
  *         description: Внутренняя ошибка сервера
  */
-
-
+/**
+ * @swagger
+ * /api/all:
+ *   get:
+ *     summary: Список пользователей
+ *     tags:
+ *       - Пользователи
+ *     responses:
+ *       '200':
+ *         description: Успешный ответ
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   // Define the properties of your apartment object here
+ *       '500':
+ *         description: Внутренняя ошибка сервера
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
+/**
+ * @swagger
+ * /api/users/delete:
+ *   delete:
+ *     summary: Удаление пользователя
+ *     tags:
+ *       - Пользователи
+ *     parameters:
+ *       - in: query
+ *         name: username
+ *         required: true
+ *         description: Имя пользователя, которого необходимо удалить
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Успешный ответ
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   type: object
+ *       '500':
+ *         description: Внутренняя ошибка сервера
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
 
 function generateSecretKey():string{
     const secretKey = crypto.randomBytes(64).toString('hex');
@@ -225,8 +285,26 @@ router.post('/register', async (req: Request, res: Response) => {
     }
 });
 
+router.get('/all', async(req:Request,res:Response)=>{
+    try{
+        const users  = await db.getAllUsers()
+        res.status(200).json({users:users})
+    }catch (e) {
+        console.error('error:',e)
+        res.status(500).json({error:'Iternal server Error'})
+    }
+})
 
-
+router.delete('/users/delete',async(req:Request,res:Response)=>{
+    try{
+    const {username} = req.query
+    const user = await db.deleteUser(String(username))
+    res.status(200).json({user:user})
+    }catch (e) {
+        console.error('error:',e)
+        res.status(500).json({error:'Iternal server Error'})
+    }
+})
 
 
 export default router;

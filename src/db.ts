@@ -3,7 +3,7 @@ import pgPromise, { IDatabase } from 'pg-promise';
 const dbConfig = {
     host: 'localhost',
     port: 5432,
-    database: 'rent',
+    database: 'Rent',
     user: 'postgres',
     password: 'postgrespw',
 };

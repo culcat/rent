@@ -1,7 +1,7 @@
 import {db} from "../db";
-export async function createAps(addres: string, description: string,phone: string, price: number,rooms: number, img: string[],type:number) {
-    const queryText = 'INSERT INTO apartments (addres, description,phone,price,rooms,img) VALUES ($1, $2,$3,$4,$5,$6,$7) RETURNING id';
-    const values = [addres, description,phone,price,rooms,img,type];
+export async function createAps(addres: string, description: string,phone: string, price: number,rooms: number, img: string[],type:number,area:string) {
+    const queryText = 'INSERT INTO apartments (address, description,phone,price,rooms,img,type,area) VALUES ($1, $2,$3,$4,$5,$6,$7,$8) RETURNING id';
+    const values = [addres, description,phone,price,rooms,img,type,area];
 
     try {
         const result = await db.one(queryText, values);
