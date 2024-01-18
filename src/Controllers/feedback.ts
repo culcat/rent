@@ -7,7 +7,6 @@ export async function feedback(phone: string, id_apart: number, msg: string) {
         throw new Error('User has already left feedback for this apartment.');
     }
 
-    //
     const queryText = 'INSERT INTO feedback (phone, id_apart, msg) VALUES ($1, $2, $3) RETURNING id';
     const values = [phone, id_apart, msg];
 
@@ -21,13 +20,26 @@ export async function feedback(phone: string, id_apart: number, msg: string) {
 }
 
 
+
 export async function feedbackGet() {
     const queryText = 'SELECT * from feedback'
     try {
-        const result = await db.many(queryText)
+        const result = await db.manyOrNone(queryText)
         return result
     }
     catch (e) {
+        console.error(e)
+        throw e
+    }
+    }
+
+    export  async function deleteFeedback(id:number) {
+    const queryText = 'DELETE from feedback WHERE id = $1'
+    const values = [id]
+    try{
+        const result = await db.oneOrNone(queryText,values)
+        return values
+    }catch (e) {
         console.error(e)
         throw e
     }

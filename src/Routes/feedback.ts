@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import * as db from '../Controllers/feedback';
+import apartaments from "./apartaments";
 
 
 const router = express.Router();
@@ -75,7 +76,40 @@ const router = express.Router();
  *                   type: string
  */
 
-
+/**
+ * @swagger
+ * /api/feedback/delete:
+ *   delete:
+ *     summary: Удаление откликов
+ *     tags:
+ *       - Отклики
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         required: true
+ *         description: Имя пользователя, которого необходимо удалить
+ *         schema:
+ *           type: number
+ *     responses:
+ *       '200':
+ *         description: Успешный ответ
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   type: object
+ *       '500':
+ *         description: Внутренняя ошибка сервера
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
 
 
 router.post('/feedback', async (req:Request, res:Response) => {
@@ -99,6 +133,17 @@ router.get('/feedback/get', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+router.delete('/feedback/delete',async(req:Request, res)=>{
+    const {id} = req.query
+    try{
+        const delFeedback = await db.deleteFeedback(Number(id))
+        res.status(200).json(delFeedback)
+    }catch (e) {
+        console.error(e)
+        res.status(500).json({error:"Iternal Server Error"})
+    }
+})
 
 
 
